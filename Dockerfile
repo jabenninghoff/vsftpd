@@ -1,9 +1,8 @@
 FROM alpine
 RUN apk add --no-cache vsftpd tzdata
-
-COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+RUN echo "seccomp_sandbox=NO" >> /etc/vsftpd/vsftpd.conf
 
 VOLUME /var/lib/ftp
-EXPOSE 21/tcp
+EXPOSE 21
 
-CMD ["vsftpd"]
+CMD ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
