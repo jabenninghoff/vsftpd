@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
-CONTAINER="vsftpd"
-PORTS="21:21"
+. test/variables.sh
 
 docker build -t $CONTAINER .
 docker run --rm -d -p $PORTS --name $CONTAINER $CONTAINER
+
+# wait for docker to fully start or test.sh will fail
+sleep $WAIT
